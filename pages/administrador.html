@@ -113,7 +113,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
+          <form id="formContacto">
             <div class="mb-3">
                 <label for="apellido" class="form-label">Apellido</label>
                 <input type="text" class="form-control" id="apellido">
@@ -131,6 +131,10 @@
                 <input type="text" class="form-control" id="telefono">
             </div>
             <div class="mb-3">
+                <label for="foto" class="form-label">Foto</label>
+                <input type="text" class="form-control" id="foto">
+            </div>
+            <div class="mb-3">
                 <label for="github" class="form-label">github</label>
                 <input type="text" class="form-control" id="github">
             </div>
@@ -138,7 +142,7 @@
                 <label for="direccion" class="form-label">Dirección</label>
                 <input type="text" class="form-control" id="direccion">
             </div>
-            <button class="btn btn-primary" type="submit">Enviar</button>
+            <button class="btn btn-primary" type="submit" id="btnEnviar">Enviar</button>
           </form>
         </div>
       </div>
