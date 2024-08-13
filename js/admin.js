@@ -14,7 +14,8 @@ const foto = document.getElementById("foto");
 const github = document.getElementById("github"),
  direccion = document.getElementById("direccion"),
  telefono = document.getElementById("telefono");
-const listaContactos =[];
+//verificar si hay datos en localstorage, si hay los traigo sino que sea un array vacio.
+ const listaContactos = JSON.parse(localStorage.getItem('listaContactosKey')) || [];
 
 //funciones
 const mostrarModal = () => {
