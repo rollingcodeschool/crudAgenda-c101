@@ -1,4 +1,5 @@
 import Contacto from "./classContacto.js";
+import { validarCantidadCaracteres } from "./validaciones.js";
 
 //declaro las variables
 const modalContacto = new bootstrap.Modal(
@@ -26,29 +27,32 @@ const mostrarModal = () => {
 };
 
 const crearContacto = () => {
- 
   //aqui digo que quiero crear un contacto
   estoyCreando = true;
   //debo validar los datos del formulario
-  //crear el objeto
-  const nuevoContacto = new Contacto(
-    apellido.value,
-    nombre.value,
-    email.value,
-    telefono.value,
-    github.value,
-    direccion.value,
-    foto.value
-  );
-  console.log(nuevoContacto);
-  //quiero guardar el objeto en mi lista de contactos o array
-  listaContactos.push(nuevoContacto);
-  console.log(listaContactos);
-  limpiarFormulario();
-  //guardar el array en localstorage
-  guardarEnLocalstorage();
-  //dibujar la fila en la tabla
-  dibujarFila(nuevoContacto);
+  if (validarCantidadCaracteres(apellido, 3, 50) && validarCantidadCaracteres(nombre,2,30)) {
+    //crear el objeto
+    const nuevoContacto = new Contacto(
+      apellido.value,
+      nombre.value,
+      email.value,
+      telefono.value,
+      github.value,
+      direccion.value,
+      foto.value
+    );
+    console.log(nuevoContacto);
+    //quiero guardar el objeto en mi lista de contactos o array
+    listaContactos.push(nuevoContacto);
+    console.log(listaContactos);
+    limpiarFormulario();
+    //guardar el array en localstorage
+    guardarEnLocalstorage();
+    //dibujar la fila en la tabla
+    dibujarFila(nuevoContacto);
+  }else{
+    console.log('hay errores en la carga del formulario')
+  }
 };
 
 const limpiarFormulario = () => {
@@ -121,8 +125,10 @@ window.prepararEditarContacto = (id) => {
   estoyCreando = false;
   mostrarModal();
   //aqui tengo que buscar el contacto y agregar sus valores en el formulario
-  const encontrarContacto = listaContactos.find((contacto) => contacto.id === id)
-  console.log(encontrarContacto)
+  const encontrarContacto = listaContactos.find(
+    (contacto) => contacto.id === id
+  );
+  console.log(encontrarContacto);
   if (encontrarContacto) {
     apellido.value = encontrarContacto.apellido;
     nombre.value = encontrarContacto.nombre;
@@ -133,30 +139,31 @@ window.prepararEditarContacto = (id) => {
   }
 };
 
-window.verDetalle = (id) =>{
- 
-  window.location.href = "/pages/detalleContacto.html?id="+id
-}
+window.verDetalle = (id) => {
+  window.location.href = "/pages/detalleContacto.html?id=" + id;
+};
 
 const administrarContacto = (e) => {
   e.preventDefault();
   console.log("estamos en administrar contacto");
-  if(estoyCreando){
-    crearContacto()
-  }else{
-    modificarContacto()
+  if (estoyCreando) {
+    crearContacto();
+  } else {
+    modificarContacto();
   }
 };
 
-const modificarContacto=() =>{
- console.log('aqui guardo los datos del contacto modificado en el array y en el localstorage')
+const modificarContacto = () => {
+  console.log(
+    "aqui guardo los datos del contacto modificado en el array y en el localstorage"
+  );
   //1 buscar la posicion del contacto a modificar
   //2- actualizar los datos del array
   listaContactos[0].apellido = apellido.value;
   listaContactos[0].nombre = nombre.value;
   listaContactos[0].email = email.value;
   //3 - actualizar el localstorage.
-}
+};
 
 //aqui agrego la logica del CRUD
 btnNuevo.addEventListener("click", mostrarModal);
