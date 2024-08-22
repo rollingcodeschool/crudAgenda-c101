@@ -1,5 +1,5 @@
 import Contacto from "./classContacto.js";
-import { validarCantidadCaracteres } from "./validaciones.js";
+import { validarCantidadCaracteres, validarEmail } from "./validaciones.js";
 
 //declaro las variables
 const modalContacto = new bootstrap.Modal(
@@ -30,7 +30,7 @@ const crearContacto = () => {
   //aqui digo que quiero crear un contacto
   estoyCreando = true;
   //debo validar los datos del formulario
-  if (validarCantidadCaracteres(apellido, 3, 50) && validarCantidadCaracteres(nombre,2,30)) {
+  if (validarCantidadCaracteres(apellido, 3, 50) && validarCantidadCaracteres(nombre,2,30) && validarEmail(email)) {
     //crear el objeto
     const nuevoContacto = new Contacto(
       apellido.value,
